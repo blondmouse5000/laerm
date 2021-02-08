@@ -1,0 +1,81 @@
+:root {
+    --background: #fff000;
+    --f_high: #000;
+    --f_med: #000;
+    --f_low: #000;
+    --f_inv: #fff000;
+    --b_high: #fff000;
+    --b_med: #fff000;
+    --b_low: #fff000;
+    --b_inv: #000;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    line-height: 1.5;
+    margin: 0px;
+    padding: 0px;
+    text-align: left;
+    font-family: monospace;
+    background: var(--background);
+    color: var(--f_med);
+}
+
+::selection {
+    background: #000;
+    color: var(--f_inv);
+}
+
+a {
+    padding: 4px 6px;
+    color: var(--f_med);
+    text-decoration: none;
+}
+
+a:hover {
+    background: var(--b_inv);
+    color: var(--f_inv);
+}
+
+header {
+    display: none;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 80%;
+    text-align: center;
+}
+
+main > nav > span {
+    user-select: none;
+}
+
+img.logo {
+    --img-size: 380px;
+    width: var(--img-size);
+    height: var(--img-size);
+    max-width: 80vmin;
+    max-height: 80vmin;
+    user-select: none;
+    -webkit-user-drag: none;
+    margin-bottom: 4rem;
+}

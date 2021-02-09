@@ -13,10 +13,9 @@
 @font-face {
     font-family: "RobotoMono";
     font-display: block;
-    src: url("font/RobotoMono-Regular.woff2") format('woff2');
+    src: url("../font/BigShouldersDisplay-Regular.woff2") format('woff2');
 }
 
-/*
 @keyframes bounceIn {
 	from, 20%, 40%, 60%, 80%, 100% {
     	animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
@@ -43,6 +42,7 @@
     	transform: scale3d(1, 1, 1);
 	}
 }
+/*
 @keyframes strobe {
 	0% {
     	background: #000;
@@ -105,9 +105,9 @@ a:hover {
     color: var(--f_inv);
 }
 
-header {
+/* header {
     display: none;
-}
+} */
 
 main {
     display: flex;
@@ -118,6 +118,9 @@ main {
     text-align: center;
 }
 
+main > nav {
+    font-size: 22px;
+}
 main > nav > span {
     user-select: none;
 }
@@ -131,7 +134,7 @@ img.logo {
     user-select: none;
     -webkit-user-drag: none;
     margin-bottom: 4rem;
-    /* animation: bounceIn 1s; */
+    animation: bounceIn 1s;
     /* animation-duration: .75s; */
     /* filter: drop-shadow(0px 0px 16px rgba(0,0,0,0.3)); */
 }

@@ -10,6 +10,52 @@
     --b_inv: #000;
 }
 
+@font-face {
+    font-family: "RobotoMono";
+    font-display: block;
+    src: url("font/RobotoMono-Regular.woff2") format('woff2');
+}
+
+/*
+@keyframes bounceIn {
+	from, 20%, 40%, 60%, 80%, 100% {
+    	animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+	}
+	0% {
+    	opacity: 1;
+    	transform: scale3d(.3, .3, .3);
+	}
+	20% {
+		transform: scale3d(1.1, 1.1, 1.1);
+	}
+	40% {
+    	transform: scale3d(.9, .9, .9);
+	}
+	60% {
+    	opacity: 1;
+    	transform: scale3d(1.03, 1.03, 1.03);
+	}
+	80% {
+    	transform: scale3d(.97, .97, .97);
+	}
+	100% {
+    	opacity: 1;
+    	transform: scale3d(1, 1, 1);
+	}
+}
+@keyframes strobe {
+	0% {
+    	background: #000;
+	}
+	50% {
+        background: #fff000;
+	}
+	100% {
+        background: #000;
+	}
+}
+*/
+
 *,
 *::before,
 *::after {
@@ -17,6 +63,8 @@
 }
 
 html {
+    font-size: 14px;
+    line-height: 1.5;
     -webkit-text-size-adjust: 100%;
 }
 
@@ -27,13 +75,17 @@ body {
 }
 
 body {
-    line-height: 1.5;
     margin: 0px;
     padding: 0px;
     text-align: left;
-    font-family: monospace;
+    font-family: "RobotoMono";
+    /* font-variation-settings: 'wght' 400;
+	font-optical-sizing: auto; */
     background: var(--background);
     color: var(--f_med);
+
+    animation: strobe 0.02s;
+    animation-iteration-count: 5;
 }
 
 ::selection {
@@ -42,9 +94,10 @@ body {
 }
 
 a {
-    padding: 4px 6px;
+    padding: 0.25em 0.5em;
     color: var(--f_med);
     text-decoration: none;
+    transition: all 0.1s;
 }
 
 a:hover {
@@ -78,4 +131,7 @@ img.logo {
     user-select: none;
     -webkit-user-drag: none;
     margin-bottom: 4rem;
+    /* animation: bounceIn 1s; */
+    /* animation-duration: .75s; */
+    /* filter: drop-shadow(0px 0px 16px rgba(0,0,0,0.3)); */
 }

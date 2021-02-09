@@ -1,0 +1,20 @@
+{
+  "name": "laerm",
+  "version": "1.0.1",
+  "description": "lauter laerm website",
+  "private": true,
+  "scripts": {
+    "test:html": "html-validate web/index.html",
+    "test": "npm run test:html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/disktree/laerm.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/disktree/laerm/blob/master/README.md",
+  "devDependencies": {
+    "html-validate": "^4.5.0"
+  }
+}

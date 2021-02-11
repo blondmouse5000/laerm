@@ -1,0 +1,84 @@
+
+/*
+@keyframes strobe {
+	0% {
+    	background: #000;
+	}
+	50% {
+        background: #fff000;
+	}
+	100% {
+        background: #000;
+	}
+}
+*/
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: "Roboto";
+    /* font-variation-settings: 'wght' 400;
+	font-optical-sizing: auto; */
+    /* animation: strobe 0.02s; */
+    /* animation-iteration-count: 5; */
+}
+
+::selection {
+    background: #000;
+    color: var(--f_inv);
+}
+
+a {
+    padding: 0.25em 0.5em;
+    color: #000;
+    //color: var(--f_med);
+    text-decoration: none;
+    transition: all 0.1s;
+}
+
+a:hover {
+    background: var(--b_inv);
+    color: var(--f_inv);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    line-height: 1;
+    font-family: "BigShouldersDisplay";
+}
+h1 {
+    font-size: 14rem;
+}
+h2 {
+    font-size: 6rem;
+}
+h3 {
+    font-size: 4rem;
+}
+h4 {
+    font-size: 2rem;
+}
+h5 {
+    font-size: 1rem;
+}
+
+ol ul, li {
+    list-style: none;
+    margin: 0;
+}

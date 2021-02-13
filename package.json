@@ -6,8 +6,9 @@
   "scripts": {
     "test:html": "html-validate web/index.html",
     "test": "npm run test:html",
-    "build:css": "sass src/style/index.scss web/style.css",
-    "dev:style": "sass src/style/index.scss web/style.css --watch"
+    "build:css": "sass style/index.scss web/style.css",
+    "build": "npm run build",
+    "dev": "sass style/index.scss web/style.css --watch"
   },
   "repository": {
     "type": "git",

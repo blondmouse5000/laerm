@@ -10,23 +10,17 @@ function main() {
 
     window.addEventListener( 'load', e -> {
 
-        final mainElement = document.body.querySelector('main');
-    
-        var radio = new Radio();
-        mainElement.append( radio.canvas );
-        radio.fitElement( mainElement );
+        var mainElement = document.body.querySelector('main');
         
-        var intro = mainElement.querySelector(':first-child');
-        intro.style.cursor = 'pointer';
-        intro.onclick = e -> {
-            intro.remove();
-            radio.play();
-            mainElement.style.cursor = 'default';
-        }
-    
+        var radio = new Radio( "https://rrr.disktree.net:8443", "laerm" );
+        mainElement.append( radio.canvas );
+        radio.fitCanvas( mainElement );
+        
+        /*
         window.addEventListener( 'resize', e -> {
-            radio.fitElement( mainElement );
+            ///radio.fitElement( mainElement );
         }, false );
-
+        */
+        
     }, false );
 }

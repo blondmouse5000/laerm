@@ -15,113 +15,130 @@ import om.audio.VolumeMeter;
 
 class Radio {
 
-	static var SERVER = "https://rrr.disktree.net:8443";
-	static var MOUNT = "laerm";
+	//static var SERVER = "https://rrr.disktree.net:8443";
+	//static var MOUNT = "laerm";
 	static var STATUS_PATH = "server_version-json.xsl";
 
-	public var canvas(default,null) : CanvasElement;
-    public var started(default,null) = false;
+	public final server : String;
+	public final mount : String;
+
 	public var color = "#050505";
 	public var lineWidth = 100;
+	public var audio(default,null) : AudioElement;
+    public var started(default,null) = false;
+	public var canvas(default,null) : CanvasElement;
 
-	var audioElement : AudioElement;
 	var ctx : CanvasRenderingContext2D;
+	var volume : om.audio.VolumeMeter;
 	var analyser : AnalyserNode;
 	var timeData : Uint8Array;
 	//var freqData : Uint8Array;
-	var volume : om.audio.VolumeMeter;
+	
+	var animationFrameId : Int;
+	var info : DivElement;
+	var status : DivElement;
 
-    public function new() {
+    public function new( server : String, mount : String ) {
 
-        canvas = cast document.body.querySelector("main>.radio>canvas");
-        //canvas = document.createCanvasElement();
-		///canvas.classList.add('radio');
-		//canvas.width = window.innerWidth;
-		//canvas.height = window.innerHeight;
-		canvas.style.position = "absolute";
-		canvas.style.display = "none";
-		//canvas.style.backgroundColor = "green";
-        //element.append( canvas );
+		this.server = server;
+		this.mount = mount;
 
-		// var button = document.createButtonElement();
-		// button.textContent = "LAERM";
-		// canvas.append( button );
+        //canvas = cast document.body.querySelector("main>.radio>canvas");
+        canvas = document.createCanvasElement();
+
+		info = cast document.body.querySelector('main>.info');
+		status = cast document.body.querySelector('main>.status');
 
 		ctx = canvas.getContext("2d");
 
 		ctx.strokeStyle = color;
 		ctx.fillStyle = color;
 
-		// ctx.fillStyle = "#00ff00";
-		// ctx.font = '50px serif';
-		// ctx.fillText('LAERRRRRRRRRRRM', 50, 90, 140);
-
-		audioElement = document.createAudioElement();
-		audioElement.preload = "none";
-		audioElement.crossOrigin = "anonymous";
-		audioElement.controls = false;
-		//audioElement.autoplay = true;
+		audio = document.createAudioElement();
+		audio.preload = "none";
+		audio.crossOrigin = "anonymous";
+		audio.controls = false;
+		//audio.autoplay = true;
 
 		var sourceElement = document.createSourceElement();
 		sourceElement.type = 'application/ogg';
-		sourceElement.src = '$SERVER/$MOUNT';
-		audioElement.appendChild( sourceElement );
+		sourceElement.src = '$server/$mount';
+		audio.appendChild( sourceElement );
 
-		audioElement.onplaying = function() {
+		var audioContext = new AudioContext();
+		analyser = audioContext.createAnalyser();
+		analyser.fftSize = 2048;
+		//analyser.smoothingTimeConstant = 0.8;
+		//analyser.minDecibels = -140;
+		//analyser.maxDecibels = 0;
+		analyser.connect( audioContext.destination );
 
-			if( started )
-				return;
+		//freqData = new Uint8Array( analyser.frequencyBinCount );
+		timeData = new Uint8Array( analyser.frequencyBinCount );
 
-			canvas.style.display = "block";
+		var source = audioContext.createMediaElementSource( audio );
+		source.connect( analyser );
 
+		volume = new VolumeMeter( audioContext );
+		source.connect( volume.processor );
+
+		audio.onplaying = function() {
+
+			//if( started ) return;
 			started = true;
 
-			var audio = new AudioContext();
-			analyser = audio.createAnalyser();
-			//analyser.fftSize = 2048;
-			analyser.fftSize = 2048;
-			//analyser.smoothingTimeConstant = 0.8;
-			//analyser.minDecibels = -140;
-			//analyser.maxDecibels = 0;
-			analyser.connect( audio.destination );
-
-			//freqData = new Uint8Array( analyser.frequencyBinCount );
-			timeData = new Uint8Array( analyser.frequencyBinCount );
-
-			var source = audio.createMediaElementSource( audioElement );
-			source.connect( analyser );
-
-			volume = new VolumeMeter( audio );
-			source.connect( volume.processor );
-
-			window.requestAnimationFrame( update );
-
+			info.classList.add('hidden');
+			//canvas.classList.remove('hidden');
+			
+			animationFrameId = window.requestAnimationFrame( update );
 		}
 
-		//audioElement.play();
+		/* audio.onloadstart = e -> {
+			//info.textContent = "…";
+		} */
+
+		audio.onpause = e -> {
+			started = false;
+			info.classList.remove('hidden');
+			//canvas.classList.add('hidden');
+			// button.textContent = "LAERM";
+			// button.classList.remove('hidden');
+			window.cancelAnimationFrame( animationFrameId );
+			ctx.clearRect( 0, 0, canvas.width, canvas.height );
+		}
+
+		canvas.onclick = function() {
+			if( started ) {
+				started = false;
+				audio.pause();
+			} else {
+				//info.textContent = "…";
+				info.classList.add('hidden');
+				audio.play();
+			}
+		}
+
+		var mainElement = document.body.querySelector("main");
+		window.addEventListener( 'resize', e -> {
+			fitCanvas( mainElement );
+        }, false );
 
 		refreshMetadata();
     }
 
 	public function refreshMetadata() {
-		var infoElement = document.body.querySelector('main>.radio>.info');
-		for( c in infoElement.children ) c.remove();
-		FetchTools.fetchJson( '$SERVER/$STATUS_PATH' ).then( data -> {
+		for( c in info.children ) c.remove();
+		FetchTools.fetchJson( '$server/$STATUS_PATH' ).then( data -> {
 			trace(data.icestats);
 			for( source in cast(data.icestats.source,Array<Dynamic>) ) {
 				if( source.server_name == "Laerm" ) {
 					trace(source.metadata);
-
 					var e = document.createDivElement();
 					e.textContent = source.metadata.title;
-					infoElement.append( e );
-					
-					e = document.createDivElement();
+					status.append( e );
+					/* e = document.createDivElement();
 					e.textContent = source.metadata.tracknumber+"/"+source.playlist.trackList.length;
-					infoElement.append( e );
-
-
-
+					status.append( e ); */
 					break;
 				}
 
@@ -129,20 +146,16 @@ class Radio {
 		} );
 	}
 
-	public function fitElement( ?element : Element ) {
-		//if( element == null ) element = canvas.parentElement;
-		var r = element.getBoundingClientRect();
+	public function fitCanvas( ?parent : Element ) {
+		if( parent == null ) parent = document.body.querySelector("main");
+		var r = parent.getBoundingClientRect();
 		canvas.width = Std.int( r.width );
 		canvas.height = Std.int( r.height );
 	}
 
-	public function play() {
-		audioElement.play();
-	}
-
     function update( time : Float ) {
 
-		window.requestAnimationFrame( update );
+		animationFrameId = window.requestAnimationFrame( update );
 
 		// ctx.fillStyle = "#000";
 		// ctx.font = '50px Title';
@@ -169,21 +182,11 @@ class Radio {
 		ctx.lineWidth = lineWidth;
 		ctx.beginPath();
 		for( i in 0...analyser.frequencyBinCount ) {
-			//v = i / 180 * Math.PI;
 			v = (Math.PI/2)/180*i;
 			x = Math.cos(v) * (timeData[i] ) ;
 			y = Math.sin(v) * (timeData[i] ) ;
 			ctx.lineTo( hw + x, hh + y );
 		}
 		ctx.stroke();
-
-		/* ctx.beginPath();
-		for( i in 0...analyser.frequencyBinCount ) {
-			v = i / 180 * Math.PI;
-			x = Math.sin(v) * (timeData[i] );
-			y = Math.cos(v) * (timeData[i] );
-			ctx.lineTo( hw + x, hh + y );
-		}
-		ctx.stroke(); */
     }
 }

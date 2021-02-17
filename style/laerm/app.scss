@@ -4,12 +4,10 @@ body {
     padding: 0px;
     display: grid;
     grid-template-columns: [main-start] 1fr [main-end];
-    //grid-template-rows: auto auto [main-start] 1fr [main-end] auto; 
     grid-template-rows: auto [main-start] 1fr [main-end] auto; 
     gap: var(--border-thick);
     overflow-x: hidden;
     background: var(--f_med);
-    ///transition: gap 0.4s;
     -webkit-tap-highlight-color: var(--f_med);
     @media only screen and (min-width: $breakpoint-tablet) {
         //--border-thick: 8px;
@@ -30,8 +28,6 @@ body {
         background: var(--b_med);
         border-right: var(--border-thick) solid var(--f_med);
         border-left: var(--border-thick) solid var(--f_med);
-        //transition: padding 0.2s;
-        //user-select: none;
         cursor: default;
         z-index: 1000;
        /*  &:hover, a:hover {

@@ -68,53 +68,74 @@ ol ul, li {
     margin: 0;
 }
 
-$range-track-height: 12px;
-$range-thumb-size: 8px;
+$range-height: 8px;
+//$range-thumb-size: 8px;
+
+input {
+	margin: 0;
+}
 
 input[type=range] {
 	appearance: none;
+	outline: none;
+	&::-webkit-slider-runnable-track {
+		background: var(--f_med);
+		height: 10px;
+		appearance: none;
+	}
+	&::-webkit-slider-thumb {
+		appearance: none;
+		width: 10px;
+		height: 10px;
+		background: var(--b_med);
+		border: 1px solid var(--f_med);
+	}
+}
+
+/*
+input[type=range] {
+	appearance: none;
 	-webkit-appearance: none;
-	//background: var(--f_med);
+	background: var(--f_med);
 	&:focus {
 		outline: none;
 	}
 	&::-webkit-slider-runnable-track {
 		appearance: none;
-		-webkit-appearance: none;
-		height: 10px;
 		background: var(--background);
-		border-top: 1px solid var(--f_med);
+		border-top: $range-height solid var(--f_med);
+	}
+	&::-webkit-slider-thumb {
+		appearance: none;
+		position: relative;
+		//top: -$range-thumb-size/2;
+		top: -$range-height ;
+		width: $range-height;
+	    height: $range-height;
+		background: var(--b_med);
+		border: 1px solid var(--f_med);
+		//border-radius: $range-thumb-size/2;
+		cursor: pointer;
+		transition: transform 0.2s, background 0.2s;
+		&:hover {
+			transform: scale(1.2);
+			//background: var(--f_high);
+		}
 	}
 	&::-moz-range-track {
 		appearance: none;
 		background: var(--f_med);
 		border: none;
 	}
-	&::-webkit-slider-thumb {
-		appearance: none;
-		-webkit-appearance: none;
-		position: relative;
-		top: -$range-thumb-size/2;
-		width: $range-thumb-size;
-	    height: $range-thumb-size;
-		background: var(--f_med);
-		border-radius: $range-thumb-size/2;
-		cursor: pointer;
-		transition: transform 0.2s, background 0.2s;
-		&:hover {
-			transform: scale(2);
-			background: var(--f_high);
-		}
-	}
 	&::-moz-range-thumb {
 		appearance: none;
 		-webkit-appearance: none;
 		position: relative;
-		top: -$range-thumb-size/2;
-		width: $range-thumb-size;
-	    height: $range-thumb-size;
+		top: -$range-height/2;
+		width: $range-height;
+	    height: $range-height;
 		background: var(--f_med);
-		border-radius: $range-thumb-size/2;
+		border-radius: $range-height/2;
 		border: none;
 		cursor: pointer;
 		transition: transform 0.1s, background 0.2s;
@@ -124,3 +145,4 @@ input[type=range] {
 		}
 	}
 }
+*/

@@ -45,7 +45,7 @@ body {
              } */
         }
         h1, h2 {
-            //transition: font-size 0.2s;
+            transition: font-size 0.2s;
             text-align: center;
             width: 100%;
             color: var(--f_med);
@@ -127,9 +127,10 @@ body {
         //border-bottom: var(--border-thick) solid black;
         @media only screen and (min-width: $breakpoint-tablet) {
             align-items: left;
-            padding: 1em 0;
+            padding: 0.2em 0;
+            font-size: 80%;
         }
-        //transition: padding 0.2s;
+        transition: padding 0.2s;
         /* &:hover {
             //padding: 4em 0;
         } */

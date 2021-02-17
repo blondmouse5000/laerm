@@ -8,52 +8,63 @@ import js.Browser.window;
 import js.html.AudioElement;
 import js.html.CanvasElement;
 import js.html.CanvasRenderingContext2D;
+import js.html.InputElement;
 import js.html.audio.AnalyserNode;
 import js.html.audio.AudioContext;
 import js.lib.Uint8Array;
 import om.audio.VolumeMeter;
+import laerm.App.BORDER_WIDTH;
 
 class Radio {
 
-	//static var SERVER = "https://rrr.disktree.net:8443";
-	//static var MOUNT = "laerm";
 	static var STATUS_PATH = "server_version-json.xsl";
 
 	public final server : String;
 	public final mount : String;
 
-	public var color = "#050505";
-	public var lineWidth = 100;
+	public var colorStroke = "#050505";
+	public var colorFill = "#fff000";
+
 	public var audio(default,null) : AudioElement;
     public var started(default,null) = false;
 	public var canvas(default,null) : CanvasElement;
 
 	var ctx : CanvasRenderingContext2D;
-	var volume : om.audio.VolumeMeter;
+	var volumeMeter : om.audio.VolumeMeter;
 	var analyser : AnalyserNode;
 	var timeData : Uint8Array;
-	//var freqData : Uint8Array;
+	var freqData : Uint8Array;
 	
 	var animationFrameId : Int;
 	var info : DivElement;
 	var status : DivElement;
+	//var volume : InputElement;
 
     public function new( server : String, mount : String ) {
 
 		this.server = server;
 		this.mount = mount;
 
-        //canvas = cast document.body.querySelector("main>.radio>canvas");
+		var mainElement = document.body.querySelector("main");
+
         canvas = document.createCanvasElement();
 
-		info = cast document.body.querySelector('main>.info');
-		status = cast document.body.querySelector('main>.status');
-
 		ctx = canvas.getContext("2d");
+		ctx.strokeStyle = colorStroke;
+		ctx.fillStyle = colorFill;
 
-		ctx.strokeStyle = color;
-		ctx.fillStyle = color;
+		// canvas2 = document.createCanvasElement();
+		// canvas2.classList.add();
 
+		info = cast mainElement.querySelector('.info');
+		status = cast mainElement.querySelector('.status');
+		
+		/* volume = cast document.body.querySelector('main>input.volume');
+		volume.addEventListener( 'input', e -> {
+			audio.volume = Std.parseFloat(volume.value);
+			trace(audio.volume);
+		}); */
+		
 		audio = document.createAudioElement();
 		audio.preload = "none";
 		audio.crossOrigin = "anonymous";
@@ -73,23 +84,19 @@ class Radio {
 		//analyser.maxDecibels = 0;
 		analyser.connect( audioContext.destination );
 
-		//freqData = new Uint8Array( analyser.frequencyBinCount );
+		freqData = new Uint8Array( analyser.frequencyBinCount );
 		timeData = new Uint8Array( analyser.frequencyBinCount );
 
 		var source = audioContext.createMediaElementSource( audio );
 		source.connect( analyser );
 
-		volume = new VolumeMeter( audioContext );
-		source.connect( volume.processor );
+		volumeMeter = new VolumeMeter( audioContext );
+		source.connect( volumeMeter.processor );
 
 		audio.onplaying = function() {
-
-			//if( started ) return;
 			started = true;
-
+			canvas.classList.add('play');
 			info.classList.add('hidden');
-			//canvas.classList.remove('hidden');
-			
 			animationFrameId = window.requestAnimationFrame( update );
 		}
 
@@ -99,6 +106,7 @@ class Radio {
 
 		audio.onpause = e -> {
 			started = false;
+			canvas.classList.remove('play');
 			info.classList.remove('hidden');
 			//canvas.classList.add('hidden');
 			// button.textContent = "LAERM";
@@ -117,8 +125,7 @@ class Radio {
 				audio.play();
 			}
 		}
-
-		var mainElement = document.body.querySelector("main");
+		
 		window.addEventListener( 'resize', e -> {
 			fitCanvas( mainElement );
         }, false );
@@ -133,15 +140,15 @@ class Radio {
 			for( source in cast(data.icestats.source,Array<Dynamic>) ) {
 				if( source.server_name == "Laerm" ) {
 					trace(source.metadata);
-					var e = document.createDivElement();
-					e.textContent = source.metadata.title;
-					status.append( e );
-					/* e = document.createDivElement();
-					e.textContent = source.metadata.tracknumber+"/"+source.playlist.trackList.length;
-					status.append( e ); */
+					function addRow( text : String ) {
+						var e = document.createDivElement();
+						e.textContent = text;
+						status.append( e );
+					}
+					addRow( source.title );
+					addRow( '${source.listeners}/${source.listener_peak} USERS' );
 					break;
 				}
-
 			}
 		} );
 	}
@@ -157,36 +164,58 @@ class Radio {
 
 		animationFrameId = window.requestAnimationFrame( update );
 
-		// ctx.fillStyle = "#000";
-		// ctx.font = '50px Title';
-		// ctx.fillText('LAERRRRRRRRRRRM', 50, 90);
+		//fitCanvas();
 
-		/* trace(volume.volume);
-		if( volume.rms > 0.3 ) {
-			color = '#fff000';
-		} else {
-			color = '#000';
-		} */
-
-		lineWidth = Std.int( (volume.volume)*1000 );
-
-		//analyser.getByteFrequencyData( freqData );
 		analyser.getByteTimeDomainData( timeData );
-
+		analyser.getByteFrequencyData( freqData );
+		
 		ctx.clearRect( 0, 0, canvas.width, canvas.height );
-
+		
 		var v : Float, x : Float, y : Float;
 		var hw = canvas.width/2, hh = canvas.height/2;
+		
+		//lineWidth = Std.int( (volumeMeter.volume)*1000 );
 
-		ctx.strokeStyle = color;
-		ctx.lineWidth = lineWidth;
+		//ctx.fillStyle = colorFill;
+		//ctx.strokeStyle = color;
+		ctx.fillStyle = colorFill;
+		ctx.strokeStyle = colorStroke;
+
+		ctx.lineWidth = Std.int( (volumeMeter.volume)*1000 );
 		ctx.beginPath();
 		for( i in 0...analyser.frequencyBinCount ) {
 			v = (Math.PI/2)/180*i;
-			x = Math.cos(v) * (timeData[i] ) ;
-			y = Math.sin(v) * (timeData[i] ) ;
+			x = Math.cos(v) * (timeData[i] );
+			y = Math.sin(v) * (timeData[i] );
 			ctx.lineTo( hw + x, hh + y );
 		}
+		ctx.stroke(); 
+ 
+		var width = 24;
+		var height = 24;
+		var ox = BORDER_WIDTH;
+		var oy = BORDER_WIDTH;
+		//var oy = canvas.height - height - 8;
+		ctx.lineWidth = 1;
+		// ctx.fillStyle = '#050505';
+		// ctx.strokeStyle = '#fff000';
+		ctx.fillRect( ox, oy, width, height );
+		ctx.rect( ox, oy, width, height );
+		ctx.stroke();
+		ctx.beginPath();
+		var sliceWidth = width * 1.0 / analyser.frequencyBinCount;
+  		x = 0.0;
+		for( i in 0...analyser.frequencyBinCount ) {
+            v = timeData[i] / 128.0;
+			y = v * height / 2;
+			if (i == 0) {
+				ctx.moveTo( ox+x, oy+y);
+			} else {
+				ctx.lineTo( ox+x, oy+y);
+			}
+			x += sliceWidth;
+		}
+		ctx.moveTo(canvas.width, canvas.height / 2);
 		ctx.stroke();
     }
 }

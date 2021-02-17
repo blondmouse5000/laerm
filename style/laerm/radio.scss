@@ -1,11 +1,14 @@
 main {
     > canvas {
         position: absolute;
-        cursor: pointer;
+        cursor: help;
         z-index: 100;
         /* &.hidden {
             display: none;
         } */
+        &.play {
+            cursor: default;
+        }
     }
     > .info {
         position: absolute;
@@ -26,11 +29,18 @@ main {
     > .status {
         position: absolute;
         right: 8px;
-        display: flex;
+        //display: flex;
+        line-height: 1.2;
         writing-mode: vertical-rl;
         // text-orientation: upright;
         padding: 6px 4px;
         font-size: 54%;
         text-transform: uppercase;
+    }
+    > input.volume {
+        position: absolute;
+        left: 8px;
+        margin: 4px;
+        z-index: 100000;
     }
 }

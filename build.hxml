@@ -1,0 +1,6 @@
+-js web/app.js
+-main laerm.App
+-cp src
+-lib om.audio
+-dce full
+-debug

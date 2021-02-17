@@ -1,0 +1,160 @@
+body {
+    --border-thick: 8px;
+    margin: 0px;
+    padding: 0px;
+    display: grid;
+    grid-template-columns: [main-start] 1fr [main-end];
+    //grid-template-rows: auto auto [main-start] 1fr [main-end] auto; 
+    grid-template-rows: auto [main-start] 1fr [main-end] auto; 
+    gap: var(--border-thick);
+    overflow-x: hidden;
+    background: var(--f_med);
+    ///transition: gap 0.4s;
+    -webkit-tap-highlight-color: var(--f_med);
+    @media only screen and (min-width: $breakpoint-tablet) {
+        //--border-thick: 8px;
+    }
+    >:first-child {
+        border-top: var(--border-thick) solid var(--f_med);;
+    }
+    >:last-child {
+        border-bottom: var(--border-thick) solid var(--f_med);;
+    }
+    > header {
+        grid-column: main-start / main-end;
+        grid-row: 1 / span 1;
+        width: 100%;
+        display: flex;
+        //justify-content: center;
+        padding: 1em 0;
+        background: var(--b_med);
+        border-right: var(--border-thick) solid var(--f_med);
+        border-left: var(--border-thick) solid var(--f_med);
+        //transition: padding 0.2s;
+        //user-select: none;
+        cursor: default;
+        z-index: 1000;
+       /*  &:hover, a:hover {
+            background: var(--f_med);
+            color: var(--b_med);
+        } */
+        @media only screen and (min-width: $breakpoint-tablet) {
+            /*  > h1 {
+                 //font-size: 12vw;
+             } */
+        }
+        @media only screen and (min-width: $breakpoint-desktop) {
+            /*  > h1 {
+                 //font-size: 10rem;
+             } */
+        }
+        h1, h2 {
+            //transition: font-size 0.2s;
+            text-align: center;
+            width: 100%;
+            color: var(--f_med);
+        }
+        h1 {
+            font-size: 18vw;
+        }
+        h2 {
+            font-size: 11vw;
+        }
+    }
+    > nav {
+        //grid-column: 1 / span 4;
+        // grid-column: page-start / page-end;
+        // grid-row: 2 / span 1;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+        flex-direction: column;
+        //padding: 2em 0;
+        user-select: none;
+        z-index: 1000;
+        background: var(--b_med);
+        border-right: var(--border-thick) solid var(--f_med);
+        border-left: var(--border-thick) solid var(--f_med);
+        //transition: padding 0.5s;
+        @media only screen and (min-width: $breakpoint-tablet) {
+            flex-direction: row;
+            //padding: 0.5em 20vw;
+        }
+        .links {
+            //background: red;
+            a {
+                margin: 0 1rem;
+                //display: inline;
+                //line-height: 3rem;
+            }
+        }
+    }
+    > main {
+        z-index: 10;
+        grid-row: [main-start] / [main-end];
+        grid-column: [main-start] / [main-end];
+        width: 100%;
+       // height: 100%;
+        background: var(--b_med);
+        border-right: var(--border-thick) solid var(--f_med);
+        border-left: var(--border-thick) solid var(--f_med);
+
+        .intro {
+            font-size: 18vw;
+            display: grid;
+            place-items: center;
+            //text-align: center;
+            //width: 100%;
+            height: 100%;
+            transform: scale(-1, 1);
+            background: var(--f_med);
+            color: var(--b_med);
+            cursor: help;
+        }
+    }
+    > footer {
+        z-index: 1000;
+        // grid-column: 1 / span 4;
+        display: flex;
+        justify-content: center;
+        //align-items: center;
+        padding: 1em 0;
+        font-weight: 900;
+        //background: var(--b_med);
+        background: var(--b_med);
+        color: var(--f_med);
+        //border-top: 4px solid black;
+        border-right: var(--border-thick) solid var(--f_med);
+        border-left: var(--border-thick) solid var(--f_med);
+        //border-bottom: var(--border-thick) solid black;
+        @media only screen and (min-width: $breakpoint-tablet) {
+            align-items: left;
+            padding: 1em 0;
+        }
+        //transition: padding 0.2s;
+        /* &:hover {
+            //padding: 4em 0;
+        } */
+        a {
+            user-select: none;
+            /* &::after {
+                margin-left: 4px;
+                padding: 0;
+                content: "|";
+            } */
+        }
+    }
+    > aside {
+        grid-column: 1 / span 4;
+        display: flex;
+        width: 100%;
+        justify-content: flex-end;
+        color: var(--b_med);
+        font-size: 4px;
+        border-right: var(--border-thick) solid var(--f_med);
+        border-left: var(--border-thick) solid var(--f_med);
+        border-bottom: var(--border-thick) solid var(--f_med);
+    }
+}

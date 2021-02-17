@@ -1,0 +1,43 @@
+/* main > div.radio {
+    // background: var(--b_med);
+    // border: var(--border-thick) solid var(--f_med);
+    // color: blue;
+    // position: fixed;
+    // top: 10px;
+    // left: 10px;
+    // width: 200px;
+    
+    // z-index: 10000;
+    // padding: 20px;
+} */
+main .radio {
+
+    // position: absolute;
+    // top: 0;
+    // // z-index: 10000;
+    // // background: red;
+
+    // //border-right: var(--border-thick) solid var(--f_med);
+    // //border-left: var(--border-thick) solid var(--f_med);
+    // z-index: 100;
+
+    canvas {
+        position: absolute;
+        user-select: none;
+    }
+
+    > .info {
+        position: absolute;
+        //top: 4px;
+        right: 1em;
+        display: flex;
+        writing-mode: vertical-rl;
+        // text-orientation: upright;
+        padding: 4px 4px;
+        //background: var(--f_med);
+        //color: var(--b_med);
+        font-size: 50%;
+    }
+
+
+}

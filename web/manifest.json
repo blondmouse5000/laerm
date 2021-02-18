@@ -1,0 +1,12 @@
+{
+    "name": "Lauter Laerm",
+    "short_name": "laerm",
+	"description": "Ich will eine lösung keine fragen beantworten!",
+    "start_url": "/",
+    "display": "standalone",
+    "theme_color": "#fff000",
+    "background_color": "#fff000",
+    "icons": [
+        { "src": "favicon.png", "sizes": "128x128", "type": "image/png" }
+    ]
+}

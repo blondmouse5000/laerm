@@ -7,7 +7,9 @@
     <meta http-equiv="Content-Language" content="en">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <meta name="keywords" content="lauter,laerm,lärm,techno,lauter laerm,lauter lärm,live">
-    <meta name="description" content="Ich will eine lösung keine fragen beantworten!">
+    <meta name="description" content="">
+    <meta name="theme-color" content="#050505">
+    <meta name="mobile-web-app-capable" content="yes">
 
     <meta property="og:url" content="https://laerm.org/">
     <meta name="og:title" content="LAUTER LÄRM">
@@ -35,9 +37,11 @@
 
     <title>LAERM</title>
 
+    <link rel="manifest" href="manifest.json">
     <link rel="icon" href="favicon.ico">
     <link rel="stylesheet" href="style.css">
    
+    <script defer src="script/three.min.js"></script>
     <script async src="app.js"></script>
 
 </head>
@@ -60,15 +64,18 @@
     <main>
         <div class="info">LAERM</div>
         <div class="status"></div>
+        <!-- <input type="range" class="volume" min="0" max="1.0" step="0.01"> -->
     </main>
     <footer>
         <a href="mailto:info@laerm.org" title="⸸">MAIL</a>
         ⸸
-        <a href="https://lauterlaerm.bandcamp.com" target="_blank" rel="external" title="⸸">BANDCAMP</a>
+        <a href="https://lauterlaerm.bandcamp.com" rel="external" title="⸸">BANDCAMP</a>
         ⸸
-        <a href="https://www.facebook.com/lauterlaerm" target="_blank" rel="external" title="⸸">FACEBOOK</a>
+        <a href="https://www.facebook.com/lauterlaerm" rel="external" title="⸸">FACEBOOK</a>
         ⸸
-        <a href="https://rrr.disktree.net:8443/laerm.m3u" title="⸸">M3U</a>
+        <a href="https://www.discogs.com/label/2078152-Lauter-L%C3%A4rm-Records" rel="external" title="⸸">DISCOGS</a>
+        ⸸
+        <a href="https://rrr.disktree.net:8443/laerm.m3u" title="⸸" download>M3U</a>
     </footer>
 </body>
 

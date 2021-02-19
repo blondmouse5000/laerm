@@ -17,6 +17,12 @@ function main() {
         var headerElement = document.body.querySelector('header');
         var mainElement = document.body.querySelector('main');
         
+        var semver = document.createDivElement();
+        semver.id = "semver";
+        semver.classList.add( 'meta' );
+        semver.textContent = 'v'+Build.getSemver();
+        headerElement.append( semver );
+
         headerElement.onclick = function(){
             radio.togglePlay();
         }

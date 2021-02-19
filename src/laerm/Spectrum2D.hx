@@ -45,7 +45,7 @@ class Spectrum2D {
 		var height = 24;
 		var ox = BORDER_WIDTH;
 		var oy = BORDER_WIDTH;
-		//var oy = canvas.height - height - 8;
+		//var oy = radio.canvas.height - height - 8;
 		graphics.lineWidth = 1;
 		graphics.fillRect( ox, oy, width, height );
 		graphics.rect( ox, oy, width, height );

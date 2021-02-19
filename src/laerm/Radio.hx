@@ -15,10 +15,9 @@ import om.audio.VolumeMeter;
 
 class Radio {
 
-	static var STATUS_PATH = "server_version-json.xsl";
-
 	public final server : String;
 	public final mount : String;
+	public final statusPath : String;
 
 	public var audio(default,null) : AudioElement;
     public var started(default,null) = false;
@@ -34,31 +33,47 @@ class Radio {
 	//var spectrum : Spectrum3D;
 	var info : DivElement;
 	var status : DivElement;
-	//var volume : InputElement;
+	var volumeControl : InputElement;
 
-    public function new( server : String, mount : String ) {
+    public function new( server : String, mount : String, statusPath : String ) {
 
 		this.server = server;
 		this.mount = mount;
-
+		this.statusPath = statusPath;
+	
 		var mainElement = document.body.querySelector("main");
 
-        canvas = document.createCanvasElement();
-
+		canvas = cast mainElement.querySelector('canvas.spectrum');
 		info = cast mainElement.querySelector('.info');
 		status = cast mainElement.querySelector('.status');
-		
-		/* volume = cast document.body.querySelector('main>input.volume');
-		volume.addEventListener( 'input', e -> {
-			audio.volume = Std.parseFloat(volume.value);
-			trace(audio.volume);
-		}); */
-		
+		volumeControl = cast mainElement.querySelector('input.volume');
+
 		audio = document.createAudioElement();
 		audio.preload = "none";
 		audio.crossOrigin = "anonymous";
 		audio.controls = false;
-		//audio.autoplay = true;
+
+		audio.onplaying = e -> {
+			
+			started = true;
+			
+			refreshMetadata();
+			fitCanvas();
+
+			canvas.classList.remove('hidden');
+			info.classList.add('hidden');
+			volumeControl.classList.remove('hidden');
+
+			animationFrameId = window.requestAnimationFrame( update );
+
+		}
+		audio.onpause = e -> {
+			started = false;
+			canvas.classList.add('hidden');
+			info.classList.remove('hidden');
+			volumeControl.classList.add('hidden');
+			window.cancelAnimationFrame( animationFrameId );
+		}
 
 		var sourceElement = document.createSourceElement();
 		sourceElement.type = 'application/ogg';
@@ -66,6 +81,7 @@ class Radio {
 		audio.appendChild( sourceElement );
 
 		var audioContext = new AudioContext();
+		if( audioContext == null ) audioContext = js.Syntax.code( 'new window.webkitAudioContext()' );
 		analyser = audioContext.createAnalyser();
 		analyser.fftSize = 2048;
 		//analyser.smoothingTimeConstant = 0.8;
@@ -82,63 +98,73 @@ class Radio {
 		volume = new VolumeMeter( audioContext );
 		source.connect( volume.processor );
 
-		audio.onplaying = function() {
-			started = true;
-			canvas.classList.add('play');
-			info.classList.add('hidden');
-			animationFrameId = window.requestAnimationFrame( update );
-		}
-
-		/* audio.onloadstart = e -> {
-			//info.textContent = "…";
-		} */
-
-		audio.onpause = e -> {
-			started = false;
-			canvas.classList.remove('play');
-			info.classList.remove('hidden');
-			//canvas.classList.add('hidden');
-			// button.textContent = "LAERM";
-			// button.classList.remove('hidden');
-			window.cancelAnimationFrame( animationFrameId );
-			//ctx.clearRect( 0, 0, canvas.width, canvas.height );
-		}
-
-		canvas.onclick = function() {
-			if( started ) {
-				started = false;
-				audio.pause();
-			} else {
-				//info.textContent = "…";
-				info.classList.add('hidden');
-				audio.play();
-			}
-		}
-		
-		window.addEventListener( 'resize', e -> {
-			fitCanvas( mainElement );
-        }, false );
+		spectrum = new Spectrum2D( this );
 
 		refreshMetadata();
 
-		spectrum = new Spectrum2D( this );
+		canvas.onclick = function(){
+            togglePlay();
+		}
+		mainElement.onmouseenter = e -> {
+			if( !audio.paused )
+				volumeControl.classList.remove('hidden');
+		}
+		mainElement.onmouseleave = e -> {
+			volumeControl.classList.add('hidden');
+		}
+		info.onclick = function(){
+            togglePlay();
+        }
+
+		volumeControl.addEventListener( 'input', e -> {
+			audio.volume = Std.parseFloat( volumeControl.value );
+		}, false );
+
+		canvas.addEventListener('wheel', e -> {
+			if( e.deltaY > 0 ) {
+				var v = audio.volume - 0.1; 
+				if( v < 0 ) v = 0;
+				audio.volume = v; 
+			} else {
+				var v = audio.volume + 0.1; 
+				if( v > 1.0 ) v = 1;
+				audio.volume = v; 
+			}
+			volumeControl.value = Std.string( audio.volume );
+		}, false );
+
+		window.addEventListener( 'resize', e -> {
+			fitCanvas( mainElement );
+        }, false );
     }
 
+	public function togglePlay() {
+		if( audio == null )
+			return;
+		if( audio.paused ) {
+			audio.play();
+		} else {
+			audio.pause();
+		}
+	}
+
 	public function refreshMetadata() {
-		for( c in info.children ) c.remove();
-		FetchTools.fetchJson( '$server/$STATUS_PATH' ).then( data -> {
-			trace(data.icestats);
+		/* for( c in status.children ) c.remove();
+		function addRow( text : String ) {
+			var e = document.createDivElement();
+			e.textContent = text;
+			status.append( e );
+		} */
+		FetchTools.fetchJson( '$server/$statusPath' ).then( data -> {
+			//trace(data.icestats);
 			this.metadata = data;
 			for( source in cast(data.icestats.source,Array<Dynamic>) ) {
 				if( source.server_name == "Laerm" ) {
-					trace(source.metadata);
-					function addRow( text : String ) {
-						var e = document.createDivElement();
-						e.textContent = text;
-						status.append( e );
-					}
-					addRow( source.title );
-					addRow( '${source.listeners}/${source.listener_peak} USERS' );
+					//trace(source.metadata);
+					status.textContent = '${source.title} / ${source.listeners}|${source.listener_peak} USERS';
+					//addRow( source.title );
+					//addRow( '${source.listeners}/${source.listener_peak} USERS' );
+					fitCanvas();
 					break;
 				}
 			}
@@ -154,14 +180,10 @@ class Radio {
 	}
 
     function update( time : Float ) {
-
 		animationFrameId = window.requestAnimationFrame( update );
-
 		//fitCanvas();
-
 		analyser.getByteTimeDomainData( timeData );
 		analyser.getByteFrequencyData( freqData );
-		
 		spectrum.render( timeData );
     }
 }

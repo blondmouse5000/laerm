@@ -1,13 +1,14 @@
 {
   "name": "laerm",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "lauter laerm website",
   "private": true,
   "scripts": {
     "test:html": "html-validate web/index.html",
     "test": "npm run test:html",
     "build:css": "sass style/index.scss web/style.css",
-    "build": "npm run build",
+    "build:js": "haxe build.hxml",
+    "build": "npm run build:css && npm run build:js",
     "dev": "sass style/index.scss web/style.css --watch"
   },
   "repository": {

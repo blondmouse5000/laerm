@@ -12,17 +12,14 @@ function main() {
 
     window.addEventListener( 'load', e -> {
 
+        var radio = new Radio( "https://rrr.disktree.net:8443", "laerm", "server_version-json.xsl" );
+       
+        var headerElement = document.body.querySelector('header');
         var mainElement = document.body.querySelector('main');
         
-        var radio = new Radio( "https://rrr.disktree.net:8443", "laerm" );
-        mainElement.append( radio.canvas );
-        radio.fitCanvas( mainElement );
-        
-        /*
-        window.addEventListener( 'resize', e -> {
-            ///radio.fitElement( mainElement );
-        }, false );
-        */
+        headerElement.onclick = function(){
+            radio.togglePlay();
+        }
         
     }, false );
 }

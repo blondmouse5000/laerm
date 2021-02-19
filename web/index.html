@@ -41,7 +41,7 @@
     <link rel="icon" href="favicon.ico">
     <link rel="stylesheet" href="style.css">
    
-    <script defer src="script/three.min.js"></script>
+    <!-- <script defer src="script/three.min.js"></script> -->
     <script async src="app.js"></script>
 
 </head>
@@ -64,7 +64,8 @@
     <main>
         <div class="info">LAERM</div>
         <div class="status"></div>
-        <!-- <input type="range" class="volume" min="0" max="1.0" step="0.01"> -->
+        <canvas class="spectrum hidden"></canvas>
+        <input type="range" class="volume hidden" value="1" min="0" max="1.0" step="0.01">
     </main>
     <footer>
         <a href="mailto:info@laerm.org" title="⸸">MAIL</a>

@@ -2,5 +2,6 @@
 -main laerm.App
 -cp src
 -lib om.audio
+-lib three.hx
 -dce full
 -debug

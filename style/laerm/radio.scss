@@ -3,11 +3,14 @@ main {
         position: absolute;
         cursor: help;
         z-index: 100;
+        // display: none;
         /* &.hidden {
             display: none;
         } */
-        &.play {
+        &.hidden {
             cursor: default;
+            pointer-events: none;
+            display: none;
         }
     }
     > .info {
@@ -20,7 +23,8 @@ main {
         width: 100%;
         font-size: 18vw;
         z-index: 100000;
-        pointer-events: none;
+        //pointer-events: none;
+        cursor: pointer;
         transform: scale(-1, 1);
         &.hidden {
             display: none;
@@ -39,8 +43,15 @@ main {
     }
     > input.volume {
         position: absolute;
-        left: 8px;
+        width: 80px;
+        //right: 16px;
+        bottom: 44px;
+        //transform-origin: right;
+        //transform: rotateZ(-90deg);
         margin: 4px;
         z-index: 100000;
+        &.hidden {
+            opacity: 0;
+        }
     }
 }

@@ -30,25 +30,26 @@ body {
         border-left: var(--border-thick) solid var(--f_med);
         cursor: default;
         z-index: 1000;
-       /*  &:hover, a:hover {
+        /*  &:hover, a:hover {
             background: var(--f_med);
             color: var(--b_med);
         } */
         @media only screen and (min-width: $breakpoint-tablet) {
             /*  > h1 {
-                 //font-size: 12vw;
-             } */
+                //font-size: 12vw;
+            } */
         }
         @media only screen and (min-width: $breakpoint-desktop) {
             /*  > h1 {
-                 //font-size: 10rem;
-             } */
+                //font-size: 10rem;
+            } */
         }
         h1, h2 {
             transition: font-size 0.2s;
             text-align: center;
             width: 100%;
             color: var(--f_med);
+            user-select: none;
         }
         h1 {
             font-size: 18vw;
@@ -115,7 +116,8 @@ body {
         // grid-column: 1 / span 4;
         display: flex;
         justify-content: center;
-        //align-items: center;
+        align-items: center;
+        flex-wrap: wrap;
         padding: 1em 0;
         font-weight: 900;
         //background: var(--b_med);

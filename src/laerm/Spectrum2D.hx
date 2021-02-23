@@ -4,16 +4,15 @@ import js.lib.Uint8Array;
 import js.html.CanvasRenderingContext2D;
 import laerm.App.BORDER_WIDTH;
 
-class Spectrum2D {
+class Spectrum2D extends Spectrum {
     
     public var colorStroke = "#050505";
 	public var colorFill = "#fff000";
 
-	var radio : Radio;
     var graphics : CanvasRenderingContext2D;
     
     public function new( radio : Radio ) {
-        this.radio = radio;
+		super( radio );
         graphics = radio.canvas.getContext("2d");
 		graphics.strokeStyle = colorStroke;
 		graphics.fillStyle = colorFill;

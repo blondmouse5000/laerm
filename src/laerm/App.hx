@@ -14,8 +14,10 @@ function main() {
 
         var radio = new Radio( "https://rrr.disktree.net:8443", "laerm", "server_version-json.xsl" );
        
-        var headerElement = document.body.querySelector('header');
-        var mainElement = document.body.querySelector('main');
+        var body = document.body;
+        var headerElement = body.querySelector('header');
+        var mainElement = body.querySelector('main');
+        var footerElement = body.querySelector('footer');
         
         var semver = document.createDivElement();
         semver.id = "semver";

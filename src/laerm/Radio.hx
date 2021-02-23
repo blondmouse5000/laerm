@@ -54,6 +54,28 @@ class Radio {
 		audio.controls = false;
 
 		audio.onplaying = e -> {
+
+			if( analyser == null ) {
+				var audioContext = new AudioContext();
+				if( audioContext == null ) audioContext = js.Syntax.code( 'new window.webkitAudioContext()' );
+				analyser = audioContext.createAnalyser();
+				analyser.fftSize = 2048;
+				//analyser.smoothingTimeConstant = 0.8;
+				//analyser.minDecibels = -140;
+				//analyser.maxDecibels = 0;
+				analyser.connect( audioContext.destination );
+		
+				freqData = new Uint8Array( analyser.frequencyBinCount );
+				timeData = new Uint8Array( analyser.frequencyBinCount );
+		
+				var source = audioContext.createMediaElementSource( audio );
+				source.connect( analyser );
+		
+				volume = new VolumeMeter( audioContext );
+				source.connect( volume.processor );
+		
+				spectrum = new Spectrum2D( this );
+			}
 			
 			started = true;
 			
@@ -62,7 +84,7 @@ class Radio {
 
 			canvas.classList.remove('hidden');
 			info.classList.add('hidden');
-			volumeControl.classList.remove('hidden');
+			///volumeControl.classList.remove('hidden');
 
 			animationFrameId = window.requestAnimationFrame( update );
 
@@ -71,7 +93,7 @@ class Radio {
 			started = false;
 			canvas.classList.add('hidden');
 			info.classList.remove('hidden');
-			volumeControl.classList.add('hidden');
+			//volumeControl.classList.add('hidden');
 			window.cancelAnimationFrame( animationFrameId );
 		}
 
@@ -80,37 +102,17 @@ class Radio {
 		sourceElement.src = '$server/$mount';
 		audio.appendChild( sourceElement );
 
-		var audioContext = new AudioContext();
-		if( audioContext == null ) audioContext = js.Syntax.code( 'new window.webkitAudioContext()' );
-		analyser = audioContext.createAnalyser();
-		analyser.fftSize = 2048;
-		//analyser.smoothingTimeConstant = 0.8;
-		//analyser.minDecibels = -140;
-		//analyser.maxDecibels = 0;
-		analyser.connect( audioContext.destination );
-
-		freqData = new Uint8Array( analyser.frequencyBinCount );
-		timeData = new Uint8Array( analyser.frequencyBinCount );
-
-		var source = audioContext.createMediaElementSource( audio );
-		source.connect( analyser );
-
-		volume = new VolumeMeter( audioContext );
-		source.connect( volume.processor );
-
-		spectrum = new Spectrum2D( this );
-
 		refreshMetadata();
 
-		canvas.onclick = function(){
-            togglePlay();
-		}
 		mainElement.onmouseenter = e -> {
 			if( !audio.paused )
 				volumeControl.classList.remove('hidden');
 		}
 		mainElement.onmouseleave = e -> {
 			volumeControl.classList.add('hidden');
+		}
+		canvas.onclick = function(){
+            togglePlay();
 		}
 		info.onclick = function(){
             togglePlay();

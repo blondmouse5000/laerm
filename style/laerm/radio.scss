@@ -34,12 +34,12 @@ main {
         position: absolute;
         right: 8px;
         //display: flex;
-        line-height: 1.2;
-        writing-mode: vertical-rl;
+        ///line-height: 1.2;
+        //writing-mode: vertical-rl;
         // text-orientation: upright;
-        padding: 6px 4px;
-        font-size: 54%;
-        text-transform: uppercase;
+        padding: 6px 6px;
+        //font-size: 54%;
+        //text-transform: uppercase;
     }
     > input.volume {
         position: absolute;

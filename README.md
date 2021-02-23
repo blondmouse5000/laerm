@@ -1,1 +1,1 @@
-# [LAUTER LAERM](https://laerm.org/)
+# [![](web/lauter_laerm-card.png)](https://laerm.org/)

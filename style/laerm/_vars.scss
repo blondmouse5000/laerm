@@ -1,14 +1,17 @@
 
-$color: #00ff00;
-
-// #fded02#01a0e4
-
-
 $breakpoint-phone: 400px;
 $breakpoint-tablet: 800px;
 $breakpoint-desktop: 1380px;
 $breakpoint-hd: 1920px;
 //$breakpoint-max: 1380px;
+
+// #fded02#01a0e4
+//$color: #00ff00;
+
+$icon-upsidedowncross: "\e901";
+$icon-album: "\e900";
+
+// -----------------------------
 
 :root {
     --background: #fff000;

@@ -17,15 +17,20 @@ body {
     gap: var(--border-thick);
     overflow-x: hidden;
     background: var(--f_med);
+    padding: var(--border-thick);
     -webkit-tap-highlight-color: var(--f_med);
     @media only screen and (min-width: $breakpoint-tablet) {
         //--border-thick: 8px;
     }
-    >:first-child {
-        border-top: var(--border-thick) solid var(--f_med);;
+    /* >:first-child {
+        //border-top: var(--border-thick) solid var(--f_med);;
     }
     >:last-child {
-        border-bottom: var(--border-thick) solid var(--f_med);;
+        //border-bottom: var(--border-thick) solid var(--f_med);;
+    } */
+
+    > * {
+        background: var(--b_med);
     }
     > header {
         grid-column: main-start / main-end;
@@ -34,9 +39,6 @@ body {
         display: flex;
         //justify-content: center;
         padding: 1em 0;
-        background: var(--b_med);
-        border-right: var(--border-thick) solid var(--f_med);
-        border-left: var(--border-thick) solid var(--f_med);
         cursor: default;
         z-index: 1000;
         /*  &:hover, a:hover {
@@ -70,9 +72,10 @@ body {
     > nav {
         //grid-column: 1 / span 4;
         // grid-column: page-start / page-end;
-        // grid-row: 2 / span 1;
+        //grid-row: 2 / span 1;
         width: 100%;
         display: flex;
+        display: none;
         justify-content: space-around;
         align-items: center;
         flex-wrap: wrap;
@@ -80,45 +83,39 @@ body {
         //padding: 2em 0;
         user-select: none;
         z-index: 1000;
-        background: var(--b_med);
-        border-right: var(--border-thick) solid var(--f_med);
-        border-left: var(--border-thick) solid var(--f_med);
         //transition: padding 0.5s;
         @media only screen and (min-width: $breakpoint-tablet) {
             flex-direction: row;
             //padding: 0.5em 20vw;
         }
-        .links {
+       
+        /* .links {
+            margin: 0;
             //background: red;
-            a {
-                margin: 0 1rem;
-                //display: inline;
-                //line-height: 3rem;
+            &:hover {
+                font-size: 18vw;
             }
+        } */
+        a {
+            // margin: 0;
+            font-family: "Title";
+            font-weight: bold;
+            //margin: 0 1rem;
+             line-height: 1;
+            font-size: 10vw;
+             text-align: center;
+             width: 100%;
+            //display: inline;
+            //line-height: 3rem;
+            transition: font-size 0.2s;
         }
     }
     > main {
         z-index: 10;
-        grid-row: [main-start] / [main-end];
         grid-column: [main-start] / [main-end];
+        grid-row: [main-start] / [main-end];
         width: 100%;
        // height: 100%;
-        background: var(--b_med);
-        border-right: var(--border-thick) solid var(--f_med);
-        border-left: var(--border-thick) solid var(--f_med);
-
-        .intro {
-            font-size: 18vw;
-            display: grid;
-            place-items: center;
-            //text-align: center;
-            //width: 100%;
-            height: 100%;
-            transform: scale(-1, 1);
-            background: var(--f_med);
-            color: var(--b_med);
-            cursor: help;
-        }
     }
     > footer {
         z-index: 1000;
@@ -127,24 +124,16 @@ body {
         justify-content: center;
         align-items: center;
         flex-wrap: wrap;
-        padding: 1em 0;
+        //padding: 1em 0;
         font-weight: 900;
         //background: var(--b_med);
-        background: var(--b_med);
         color: var(--f_med);
-        //border-top: 4px solid black;
-        border-right: var(--border-thick) solid var(--f_med);
-        border-left: var(--border-thick) solid var(--f_med);
-        //border-bottom: var(--border-thick) solid black;
         @media only screen and (min-width: $breakpoint-tablet) {
             align-items: left;
             padding: 0.2em 0;
             font-size: 80%;
         }
         transition: padding 0.2s;
-        /* &:hover {
-            //padding: 4em 0;
-        } */
         a {
             user-select: none;
             /* &::after {
@@ -154,15 +143,15 @@ body {
             } */
         }
     }
-    > aside {
+    /* > aside {
         grid-column: 1 / span 4;
         display: flex;
         width: 100%;
         justify-content: flex-end;
         color: var(--b_med);
         font-size: 4px;
-        border-right: var(--border-thick) solid var(--f_med);
-        border-left: var(--border-thick) solid var(--f_med);
-        border-bottom: var(--border-thick) solid var(--f_med);
-    }
+        // border-right: var(--border-thick) solid var(--f_med);
+        // border-left: var(--border-thick) solid var(--f_med);
+        // border-bottom: var(--border-thick) solid var(--f_med);
+    } */
 }

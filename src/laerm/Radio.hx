@@ -92,7 +92,9 @@ class Radio {
 		audio.onpause = e -> {
 			started = false;
 			canvas.classList.add('hidden');
+			info.textContent = 'LAERM';
 			info.classList.remove('hidden');
+			info.style.pointerEvents = null;
 			//volumeControl.classList.add('hidden');
 			window.cancelAnimationFrame( animationFrameId );
 		}
@@ -115,6 +117,8 @@ class Radio {
             togglePlay();
 		}
 		info.onclick = function(){
+			//info.classList.add('hidden');
+			//info.textContent = '///';
             togglePlay();
         }
 
@@ -144,6 +148,8 @@ class Radio {
 		if( audio == null )
 			return;
 		if( audio.paused ) {
+			info.textContent = '///';
+			info.style.pointerEvents = "none";
 			audio.play();
 		} else {
 			audio.pause();

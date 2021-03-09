@@ -1,15 +1,16 @@
 {
   "name": "laerm",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "lauter laerm website",
   "private": true,
   "scripts": {
+    "clean": "rm -f web/style.css*",
     "test:html": "html-validate web/index.html",
     "test": "npm run test:html",
-    "build:css": "sass style/index.scss web/style.css",
+    "build:css": "sass style/style.scss web/style.css --style compressed",
     "build:js": "haxe build.hxml",
     "build": "npm run build:css && npm run build:js",
-    "dev": "sass style/index.scss web/style.css --watch"
+    "dev": "sass style/style.scss web/style.css --watch"
   },
   "repository": {
     "type": "git",

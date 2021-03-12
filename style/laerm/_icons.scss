@@ -1,5 +1,6 @@
 /* --- ICONS --- */
 
+$icon-radioactive: "\e902";
 $icon-upsidedowncross: "\e901";
 $icon-album: "\e900";
 
@@ -29,6 +30,11 @@ $-icon-font-path: "font" !default;
   //speak: never;
 }
 
+.icon-radioactive {
+  &:before {
+    content: $icon-radioactive; 
+  }
+}
 .icon-upsidedowncross {
   &:before {
     content: $icon-upsidedowncross; 

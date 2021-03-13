@@ -25,9 +25,9 @@ class Radio {
 	public var volume(default,null) : om.audio.VolumeMeter;
 	public var analyser(default,null) : AnalyserNode;
 	public var metadata(default,null) : Dynamic;
+	public var timeData(default,null) : Uint8Array;
+	public var freqData(default,null) : Uint8Array;
 
-	var timeData : Uint8Array;
-	var freqData : Uint8Array;
 	var animationFrameId : Int;
 	var spectrum : Spectrum2D;
 	//var spectrum : Spectrum3D;
@@ -75,6 +75,8 @@ class Radio {
 				source.connect( volume.processor );
 		
 				spectrum = new Spectrum2D( this );
+
+				fitCanvas();
 			}
 			
 			started = true;
@@ -87,7 +89,6 @@ class Radio {
 			///volumeControl.classList.remove('hidden');
 
 			animationFrameId = window.requestAnimationFrame( update );
-
 		}
 		audio.onpause = e -> {
 			started = false;
@@ -142,6 +143,8 @@ class Radio {
 		window.addEventListener( 'resize', e -> {
 			fitCanvas( mainElement );
         }, false );
+
+		fitCanvas();
     }
 
 	public function togglePlay() {

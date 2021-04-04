@@ -21,7 +21,7 @@
   "license": "ISC",
   "homepage": "https://github.com/disktree/laerm/blob/master/README.md",
   "devDependencies": {
-    "sass": "^1.32.6",
-    "html-validate": "^4.5.0"
+    "html-validate": "^4.5.0",
+    "sass": "^1.32.6"
   }
 }

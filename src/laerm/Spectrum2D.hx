@@ -5,7 +5,7 @@ import js.html.CanvasRenderingContext2D;
 import laerm.App.BORDER_WIDTH;
 
 class Spectrum2D extends Spectrum {
-    
+
     var graphics : CanvasRenderingContext2D;
     
     public function new( radio : Radio ) {
@@ -19,13 +19,18 @@ class Spectrum2D extends Spectrum {
 		var frequencyBinCount = radio.analyser.frequencyBinCount;
 		var v : Float, x : Float, y : Float;
 		var hw = canvas.width/2, hh = canvas.height/2;
+
+		var colorBg = (color_bg != null) ? color_bg : App.theme.b_med;
+		var colorFg = (color_fg != null) ? color_fg : App.theme.f_med;
        
 		graphics.clearRect( 0, 0, canvas.width, canvas.height );
 		
-		graphics.fillStyle = App.theme.b_med;
-		graphics.strokeStyle = App.theme.f_med;
+		//graphics.fillStyle = App.theme.b_med;
+		graphics.fillStyle = colorBg;
+		graphics.strokeStyle = colorFg; //App.theme.f_med;
 		graphics.lineWidth = Std.int( (radio.volume.volume*1000) );
-
+		
+		graphics.fillRect( 0, 0, canvas.width, canvas.height );
 		//drawTime1( 0, 0, canvas.width, canvas.height );
 
 		graphics.lineWidth = Std.int( (radio.volume.volume*1000) );
@@ -44,8 +49,10 @@ class Spectrum2D extends Spectrum {
 		var h = 32;
 		var px = BORDER_WIDTH; //canvas.width - (w+BORDER_WIDTH);
 		var py = BORDER_WIDTH; //canvas.height - (h+BORDER_WIDTH);
-		graphics.fillStyle = App.theme.b_med;
-		graphics.strokeStyle = App.theme.f_med;
+		//graphics.fillStyle = App.theme.b_med;
+		graphics.fillStyle = colorBg;
+		//graphics.strokeStyle = App.theme.f_med;
+		graphics.strokeStyle = colorFg;
 		graphics.lineWidth = 1;
 		graphics.fillRect( px, py, w, h );
 		graphics.rect( px, py, w, h );

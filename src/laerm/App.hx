@@ -27,8 +27,11 @@ function main() {
             b_med: style.getPropertyValue('--b_med')
         };
 
-        var radio = new Radio( "https://rrr.disktree.net:8443", "laerm", "server_version-json.xsl" );
-       
+        var radio = new Radio( "https://rrr.disktree.net:8443" );
+        radio.fetchStatus().then( stats -> {
+            //trace(stats);
+        });
+
         var body = document.body;
         var headerElement = body.querySelector('header');
         var mainElement = body.querySelector('main');

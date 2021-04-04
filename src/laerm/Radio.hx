@@ -185,7 +185,7 @@ class Radio {
         }
 
         var sourceElement = document.createSourceElement();
-		sourceElement.type = 'application/ogg';
+		sourceElement.type = source.server_type;
 		sourceElement.src = source.listenurl;
 		audio.appendChild( sourceElement );
 

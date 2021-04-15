@@ -9,6 +9,7 @@ import js.html.Element;
 import js.html.InputElement;
 import js.html.audio.AnalyserNode;
 import js.html.audio.AudioContext;
+import js.html.audio.GainNode;
 import js.lib.Promise;
 import js.lib.Uint8Array;
 import om.FetchTools;
@@ -34,6 +35,7 @@ class Radio {
     var spectrum : Spectrum2D;
     var status : DivElement;
     var volumeControl : InputElement;
+    //var gain : GainNode;
 
     public function new( host : String ) {
 
@@ -82,6 +84,7 @@ class Radio {
 
 		volumeControl.addEventListener( 'input', e -> {
 			audio.volume = Std.parseFloat( volumeControl.value );
+			//gain.gain.value = Std.parseFloat( volumeControl.value );
 		}, false );
         
         window.addEventListener( 'resize', e -> {
@@ -131,6 +134,10 @@ class Radio {
                 }
             }
         }
+        if( source == null ) {
+            trace("have no source");
+            return;
+        }
 
         trace('playSource', source );
 
@@ -146,12 +153,16 @@ class Radio {
                 var audioContext = new AudioContext();
                 if( audioContext == null ) audioContext = js.Syntax.code( 'new window.webkitAudioContext()' );
                 
+                //gain = audioContext.createGain();
+				//gain.connect( audioContext.destination );
+
                 analyser = audioContext.createAnalyser();
                 analyser.fftSize = 2048;
                 //analyser.smoothingTimeConstant = 0.8;
 				//analyser.minDecibels = -140;
 				//analyser.maxDecibels = 0;
 				analyser.connect( audioContext.destination );
+				//analyser.connect( gain );
                 
                 freqData = new Uint8Array( analyser.frequencyBinCount );
                 timeData = new Uint8Array( analyser.frequencyBinCount );

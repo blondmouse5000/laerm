@@ -4,4 +4,6 @@
 -lib om.audio
 -lib three.hx
 -dce full
--debug
+-D js-es=6
+-D analyzer-optimize
+-D source-header=

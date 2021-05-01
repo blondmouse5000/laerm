@@ -4,14 +4,18 @@
   "description": "lauter laerm website",
   "private": true,
   "scripts": {
-    "clean": "rm -f web/style.css*",
+    "clean": "rm -f web/app.js* web/style.css*",
     "test:html": "html-validate web/index.html",
     "test": "npm run test:html",
-    "build:sass": "sass style/style.scss web/style.css --style compressed",
-    "build:haxe": "haxe build.hxml",
+    "build:sass": "sass style/style.scss web/style.css",
+    "build:haxe": "haxe build.hxml -debug",
     "build": "npm run build:sass && npm run build:haxe",
     "dev:sass": "sass style/style.scss web/style.css --watch",
-    "dev": "npm run dev:sass"
+    "dev": "npm run dev:sass",
+    "prod:sass": "sass style/style.scss web/style.css --no-source-map --style compressed",
+    "prod:haxe": "haxe build.hxml -dce full -D analyzer-optimize -D source-header=",
+    "js:min": "google-closure-compiler -O SIMPLE --js web/app.js --js_output_file web/app.min.js && mv web/app.min.js web/app.js",
+    "prod": "npm run clean && npm run prod:sass && npm run prod:haxe && npm run js:min"
   },
   "repository": {
     "type": "git",
@@ -21,7 +25,8 @@
   "license": "ISC",
   "homepage": "https://github.com/disktree/laerm/blob/master/README.md",
   "devDependencies": {
+    "google-closure-compiler": "^20210406.0.0",
     "html-validate": "^4.5.0",
-    "sass": "^1.32.11"
+    "sass": "^1.32.12"
   }
 }

@@ -27,9 +27,13 @@ function main() {
             b_med: style.getPropertyValue('--b_med')
         };
 
-        var radio = new Radio( "https://rrr.disktree.net:8443" );
+        //var url = 'http://rrr.disktree.net:8000';
+        var url = 'https://rrr.disktree.net:8443';
+        var radio = new Radio( url );
         radio.fetchStatus().then( stats -> {
-            //trace(stats);
+            // trace(stats);
+        }).catchError( e -> {
+            trace(e);
         });
 
         var body = document.body;

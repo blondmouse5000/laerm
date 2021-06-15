@@ -93,17 +93,19 @@ class Radio {
     }
 
     public function fetchStatus() : Promise<Dynamic> {
-        return FetchTools.fetchJson( '$host/status-json.xsl' ).then( data -> {
+        return FetchTools.fetchJson( '$host/status-json.xsl' ).then( (data:Dynamic) -> {
             var stats = data.icestats;
-            var fetchedSources : Array<Dynamic> = cast stats.source;
-            sources = fetchedSources.filter( s -> {
+            var fetchedSources : Array<Dynamic> = if( !Std.isOfType( stats.source, Array ) ) [stats.source]  else stats.source;
+            this.sources = fetchedSources.filter( s -> {
                 for( ws in SOURCES ) {
-                    if( ws == s.server_name )
+                    if( ws == Reflect.field(s,'server_name') ) {
+                        trace("STREAM:"+ws);
                         return true;
+                    }
                 }
                 return false;
             });
-            return data.icestats;
+            return this.sources;
         });
     }
 
@@ -125,11 +127,13 @@ class Radio {
     public function playSource( ?source : Dynamic ) {
 
         if( source == null ) {
-            for( s in sources ) {
-                for( ws in SOURCES ) {
-                    if( ws == s.server_name ) {
-                        source = s;
-                        break;
+            if( sources != null ) {
+                for( s in sources ) {
+                    for( ws in SOURCES ) {
+                        if( ws == s.server_name ) {
+                            source = s;
+                            break;
+                        }
                     }
                 }
             }
@@ -139,7 +143,7 @@ class Radio {
             return;
         }
 
-        trace('playSource', source );
+        trace('playSource', source.server_name );
 
         audio = document.createAudioElement();
         audio.preload = "none";
@@ -197,8 +201,9 @@ class Radio {
 
         var sourceElement = document.createSourceElement();
 		sourceElement.type = source.server_type;
-		sourceElement.src = source.listenurl;
-		audio.appendChild( sourceElement );
+		//sourceElement.src = source.listenurl;
+		sourceElement.src = '$host/'+source.server_name;
+		audio.append( sourceElement );
 
         audio.play();
 

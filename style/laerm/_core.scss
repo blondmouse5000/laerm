@@ -41,6 +41,11 @@ a {
         //color: var(--f_inv);
     } */
 }
+a:focus {
+    background: var(--f_med);
+    color: var(--b_med);
+    border: none;
+}
 
 h1, h2, h3, h4, h5, h6 {
     margin: 0;

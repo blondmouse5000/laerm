@@ -1,3 +1,4 @@
+node_modules/
 web/app.js*
 web/font/*.ttf
 web/style.css*

@@ -27,6 +27,6 @@
   "devDependencies": {
     "google-closure-compiler": "^20210406.0.0",
     "html-validate": "^4.5.0",
-    "sass": "^1.32.12"
+    "sass": "^1.49.9"
   }
 }

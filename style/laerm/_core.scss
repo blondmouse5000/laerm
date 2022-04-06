@@ -33,7 +33,8 @@ body {
 a {
     padding: 0.25em 0.5em;
     color: var(--f_med);
-    //color: var(--f_med);
+    border: none;
+    outline: none;
     text-decoration: none;
     transition: all 0.1s;
    /*  &:hover {
@@ -45,6 +46,10 @@ a:focus {
     background: var(--f_med);
     color: var(--b_med);
     border: none;
+}
+a:not([href]) {
+    color: var(--f_low);
+
 }
 
 h1, h2, h3, h4, h5, h6 {

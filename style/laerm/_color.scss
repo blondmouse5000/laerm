@@ -3,10 +3,14 @@
     --background: #0000ff;
     --f_high: #000;
     --f_med: #050505;
-    --f_low: #050505;
+    --f_low: #505050;
     --f_inv: #fff000;
     --b_high: #fff000;
     --b_med: #fff000;
     --b_low: #fff000;
     --b_inv: #070707;
+
+    --fg: var(--f_med);
+    --bg: var(--b_med);
+    --acc: var(--f_high)
 }

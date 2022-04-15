@@ -1,0 +1,4 @@
+baseURL = "https://laerm.org"
+cleandestinationdir = true
+[minify]
+	minifyOutput = true

@@ -1,4 +1,6 @@
 node_modules/
-web/app.js*
-web/font/*.ttf
-web/style.css*
+public/
+static/app.js*
+static/font/*.ttf
+static/style.css*
+

@@ -4,10 +4,10 @@
 	<!--{{ partial "pagination" . }}-->
 	{{ if .Title }}<h1>{{- .Title -}}</h1>{{ end }}
 	{{ if .Content }}<section class="content">{{- .Content -}}</section>{{ end }}
-	<ul>
-		{{ range $paginator.Pages }}
-		{{ .Render "li" }}
-		{{ end }}
-	</ul>
+    <ol>
+        {{ range $paginator.Pages }}
+        {{ .Render "li" }}
+        {{ end }}
+    </ol>
 </main>
 {{ end }}

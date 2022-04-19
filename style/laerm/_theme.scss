@@ -1,5 +1,11 @@
 /* --- COLORS --- */
 :root {
+    --black: #050505;
+    --yellow: #fff000;
+    --bg: var(--yellow);
+    --fg: var(--black);
+ 
+    /*
     --background: #0000ff;
     --f_high: #000;
     --f_med: #050505;
@@ -13,4 +19,5 @@
     --fg: var(--f_med);
     --bg: var(--b_med);
     --acc: var(--f_high)
+*/
 }

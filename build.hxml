@@ -1,4 +1,4 @@
--js web/app.js
+-js static/app.js
 -main laerm.App
 -cp src
 -lib om.audio

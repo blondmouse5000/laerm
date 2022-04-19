@@ -1,5 +1,56 @@
 @use 'breakpoint';
 
+body {
+    --border-thick: 1rem;
+    display: grid;
+    grid-template-columns: [main-start] 1fr [main-end];
+    grid-template-rows: auto [main-start] 1fr [main-end] auto; 
+    gap: var(--border-thick);
+    padding: var(--border-thick);
+    background: var(--black);
+    //color: var(--fg);
+    > * {
+        background: var(--yellow);
+        padding: 1rem 1.5rem;
+    }
+    > header {
+        background: blue;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        //align-items: center;
+        //width: 100%;
+        h1 {
+            text-align: center;
+       }
+    }
+    > main {
+        width: 100%;
+        background: green;
+        //display: flex;
+        //justify-content: center;
+        
+        text-align: center;
+        //> .content {
+            //display: flex;
+            //justify-content: center;
+            //align-items: center;
+            //margin: 0 auto;
+            //height: 100%;
+            //max-width: 800px;
+            //background: red;
+        //}
+    }
+    > footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        overflow: hidden;
+    }
+}
+
+/*
 #semver {
     position: absolute;
     top: 16px;
@@ -9,7 +60,7 @@
 }
 
 body {
-    --border-thick: 8px;
+    --border-thick: 14px;
     margin: 0px;
     padding: 0px;
     display: grid;
@@ -28,7 +79,7 @@ body {
     }
     >:last-child {
         //border-bottom: var(--border-thick) solid var(--f_med);;
-    } */
+    } * /
 
     > * {
         background: var(--b_med);
@@ -40,9 +91,14 @@ body {
         width: 100%;
         //justify-content: center;
         padding: 1em 0;
+
         z-index: 1000;
         cursor: default;
-        h1, h2 {
+        h1 {
+            text-align: center;
+            //margin: 0 auto;
+        }
+        /*h1, h2 {
             transition: font-size 0.2s;
             text-align: center;
             width: 100%;
@@ -54,7 +110,7 @@ body {
         }
         h2 {
             font-size: 11vw;
-        }
+        }* /
     }
     > nav {
         //grid-column: 1 / span 4;
@@ -123,7 +179,7 @@ body {
                 height: 100vh;
                 object-fit: cover;
                 z-index: 0;
-            }*/
+            }* /
             .inner {
                 position: relative;
                 z-index: 1000;
@@ -153,7 +209,7 @@ body {
                 margin-left: 4px;
                 padding: 0;
                 content: "|";
-            } */
+            } * /
         }
     }
     /* > aside {
@@ -166,5 +222,6 @@ body {
         // border-right: var(--border-thick) solid var(--f_med);
         // border-left: var(--border-thick) solid var(--f_med);
         // border-bottom: var(--border-thick) solid var(--f_med);
-    } */
+    } * /
 }
+*/

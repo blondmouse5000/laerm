@@ -14,22 +14,10 @@
         <title>{{- .Params.Title -}}</title>
 		{{ template "_internal/opengraph.html" . }}
 		{{ template "_internal/twitter_cards.html" . }}
-        <link rel="stylesheet" href="/style.css">
-		<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-		<link rel="alternate icon" href="/favicon.ico">
-		<link rel="manifest" href="/manifest.json">
-        <script src="/app.js" async></script>
-        <script type="application/ld+json">
-            {
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              "url": "https://laerm.org",
-              "name": "Lauter Lärm",
-              "description": "///",
-              "email": "info(at)laerm.org",
-              "image": "https://laerm.org/laerm.png"
-            }
-        </script>
+        <link rel="stylesheet" href="{{ .Site.BaseURL }}//style.css">
+		<!--<link rel="icon" href="/favicon.svg" type="image/svg+xml">-->
+		<link rel="alternate icon" href="{{ .Site.BaseURL }}//favicon.ico">
+		<link rel="manifest" href="{{ .Site.BaseURL }}//manifest.json">
     </head>
     <body>
         {{ block "header" . }}{{- partial "site/header" . -}}{{ end }}

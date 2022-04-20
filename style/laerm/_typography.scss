@@ -27,53 +27,72 @@ body {
 }
 
 ::selection {
-    background: #000;
-    color: var(--f_inv);
+    background: var(--fg);
+    color: var(--bg);
 }
 
 a {
     padding: 0.25em 0.5em;
-    color: var(--f_med);
+    color: var(--fg);
     border: none;
+    border-radius: 0.5em;
     outline: none;
     text-decoration: none;
     transition: all 0.1s;
-   /*  &:hover {
-        //background: var(--b_inv);
-        //color: var(--f_inv);
-    } */
+    &:hover {
+        background: var(--fg);
+        color: var(--bg);
+    }
+    &:focus {
+        background: var(--fg);
+        color: var(--bg);
+        border: none;
+    }
+    //a:not([href]) {
+        //color: var(--f_low);
+    //}
 }
-a:focus {
-    background: var(--f_med);
-    color: var(--b_med);
-    border: none;
-}
-a:not([href]) {
-    color: var(--f_low);
 
-}
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4 {
     margin: 0;
     font-family: "Title";
     line-height: 1;
+    //margin-top: 1em;
+    //margin-bottom: 1em;
+
 }
 h1 {
-    font-size: 4rem;
+    font-size: 6rem;
 }
 h2 {
-    font-size: 3rem;
+    font-size: 4rem;
 }
 h3 {
-    font-size: 2rem;
+    font-size: 3rem;
 }
 h4 {
-    font-size: 1rem;
+    font-size: 2rem;
 }
 
-ol ul, li {
-    list-style: none;
+hr {
+    border: none;
+    border-top: 1px dashed var(--fg); 
+    margin-top: 2rem;
+    padding: 1rem 0;
+}
+
+img, video {
+    display: block;
+    margin-bottom: 1rem;
+    border: var(--app-border) solid var(--fg);
+}
+
+ol, ul, li {
     margin: 0;
+    padding: 0;
+    list-style: none;
+
 }
 
 $range-height: 8px;
@@ -149,6 +168,6 @@ input[type=range] {
 	//padding: 6px 4px;
 	font-size: 50%;
 	line-height: 1.2;
-	writing-mode: vertical-rl;
-	text-transform: uppercase;
+	//writing-mode: vertical-rl;
+	//text-transform: uppercase;
 }

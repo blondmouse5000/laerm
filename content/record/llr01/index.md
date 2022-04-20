@@ -1,6 +1,5 @@
 ---
-title: "Record 01"
+title: "LR01"
 ---
-RRRRRRRRRRRRRRRRRRRRRRRRRRRRRr1
 ![LAUT001](LAUT001.jpg)
 ![LAUT001](LAUT001.jpg)

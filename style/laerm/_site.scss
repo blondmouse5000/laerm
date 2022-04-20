@@ -1,45 +1,58 @@
 @use 'breakpoint';
 
 body {
-    --border-thick: 1rem;
     display: grid;
     grid-template-columns: [main-start] 1fr [main-end];
     grid-template-rows: auto [main-start] 1fr [main-end] auto; 
-    gap: var(--border-thick);
-    padding: var(--border-thick);
-    background: var(--black);
-    //color: var(--fg);
+    gap: var(--app-border);
+    padding: var(--app-border);
+    background: var(--fg);
     > * {
         background: var(--yellow);
         padding: 1rem 1.5rem;
     }
     > header {
-        background: blue;
         overflow: hidden;
         display: flex;
         justify-content: center;
         //align-items: center;
-        //width: 100%;
+        text-align: center;
+        user-select: none;
         h1 {
-            text-align: center;
+            font-size: 20vw;
+            margin: 0;
+            line-height: 1;
        }
     }
     > main {
+        position: relative;
         width: 100%;
-        background: green;
+        //background: green;
         //display: flex;
         //justify-content: center;
-        
         text-align: center;
-        //> .content {
-            //display: flex;
-            //justify-content: center;
-            //align-items: center;
-            //margin: 0 auto;
-            //height: 100%;
-            //max-width: 800px;
-            //background: red;
-        //}
+        overflow-y: scroll;
+        > article {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 2rem 0;
+            img {
+                width: 100%;
+            }
+        }
+        .background-media {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            user-select: none;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
     }
     > footer {
         display: flex;
@@ -47,181 +60,11 @@ body {
         align-items: center;
         flex-wrap: wrap;
         overflow: hidden;
-    }
-}
-
-/*
-#semver {
-    position: absolute;
-    top: 16px;
-    right: 8px;
-    padding: 0px 6px;
-    z-index: 1000000;
-}
-
-body {
-    --border-thick: 14px;
-    margin: 0px;
-    padding: 0px;
-    display: grid;
-    grid-template-columns: [main-start] 1fr [main-end];
-    grid-template-rows: auto [main-start] 1fr [main-end] auto; 
-    gap: var(--border-thick);
-    overflow-x: hidden;
-    background: var(--f_med);
-    padding: var(--border-thick);
-    -webkit-tap-highlight-color: var(--f_med);
-    // @media only screen and (min-width: $breakpoint-tablet) {
-    //     //--border-thick: 8px;
-    // }
-    /* >:first-child {
-        //border-top: var(--border-thick) solid var(--f_med);;
-    }
-    >:last-child {
-        //border-bottom: var(--border-thick) solid var(--f_med);;
-    } * /
-
-    > * {
-        background: var(--b_med);
-    }
-    > header {
-        grid-column: main-start / main-end;
-        grid-row: 1 / span 1;
-        display: flex;
-        width: 100%;
-        //justify-content: center;
-        padding: 1em 0;
-
-        z-index: 1000;
-        cursor: default;
-        h1 {
-            text-align: center;
-            //margin: 0 auto;
-        }
-        /*h1, h2 {
-            transition: font-size 0.2s;
-            text-align: center;
-            width: 100%;
-            color: var(--f_med);
-            user-select: none;
-        }
-        h1 {
-            font-size: 18vw;
-        }
-        h2 {
-            font-size: 11vw;
-        }* /
-    }
-    > nav {
-        //grid-column: 1 / span 4;
-        // grid-column: page-start / page-end;
-        //grid-row: 2 / span 1;
-        width: 100%;
-        display: flex;
-        display: none;
-        justify-content: space-around;
-        align-items: center;
-        flex-wrap: wrap;
-        flex-direction: column;
-        //padding: 2em 0;
+        font-weight: bold;
         user-select: none;
-        z-index: 1000;
-        //transition: padding 0.5s;
-        @media only screen and (min-width: breakpoint.$tablet) {
-            flex-direction: row;
-            //padding: 0.5em 20vw;
-        }
-        a {
-            // margin: 0;
-            font-family: "Title";
-            font-weight: bold;
-            //margin: 0 1rem;
-             line-height: 1;
-            font-size: 10vw;
-             text-align: center;
-             width: 100%;
-            //display: inline;
-            //line-height: 3rem;
-            transition: font-size 0.2s;
+        > i {
+            margin: 0 0.25em;
         }
     }
-    > main {
-        z-index: 10;
-        grid-column: [main-start] / [main-end];
-        grid-row: [main-start] / [main-end];
-        width: 100%;
-        > .content {
-            padding: 6rem 2rem 2rem 2rem;
-            margin: 0 auto;
-            max-width: 800px;
-            text-align: center;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            a[href]:hover {
-                background:var(--f_med);
-                color:var(--b_med);
-            }
-            ol, ul, li {
-                margin: 0;
-                padding: 0;
-            }
-            video {
-                width: 100%;
-                border: 1rem solid var(--f_med);
-            }
-            /*video.background {
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 1rem;
-                width: 100vw;
-                height: 100vh;
-                object-fit: cover;
-                z-index: 0;
-            }* /
-            .inner {
-                position: relative;
-                z-index: 1000;
-            }
-       }
-    }
-    > footer {
-        z-index: 1000;
-        // grid-column: 1 / span 4;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        padding: 1em 1.5em;
-        font-weight: 900;
-        color: var(--f_med);
-        @media only screen and (min-width: breakpoint.$tablet) {
-            align-items: left;
-            padding: 0.2em 0;
-            font-size: 80%;
-        }
-        transition: padding 0.2s;
-        a {
-            user-select: none;
-            margin: 0 1vw;
-            /* &::after {
-                margin-left: 4px;
-                padding: 0;
-                content: "|";
-            } * /
-        }
-    }
-    /* > aside {
-        grid-column: 1 / span 4;
-        display: flex;
-        width: 100%;
-        justify-content: flex-end;
-        color: var(--b_med);
-        font-size: 4px;
-        // border-right: var(--border-thick) solid var(--f_med);
-        // border-left: var(--border-thick) solid var(--f_med);
-        // border-bottom: var(--border-thick) solid var(--f_med);
-    } * /
 }
-*/
+

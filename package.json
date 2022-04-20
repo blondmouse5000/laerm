@@ -4,11 +4,11 @@
   "description": "lauter laerm website",
   "private": true,
   "scripts": {
-    "clean": "rm -rf public resources && rm -f static/style.css*",
+    "clean": "rm -rf public resources && rm -f static/radio.js* static/style.css*",
     "test:html": "html-validate web/index.html",
     "test": "npm run test:html",
     "build:sass": "sass style/main.scss static/style.css",
-    "build:haxe": "haxe build.hxml -debug",
+    "build:haxe": "haxe radio.hxml -debug",
     "build:hugo": "hugo --verbose",
     "build": "npm run build:sass && npm run build:haxe && npm run build:hugo",
     "dev:sass": "sass style/main.scss static/style.css --watch",

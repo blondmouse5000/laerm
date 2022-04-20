@@ -1,6 +1,8 @@
+assets/*.js*
 node_modules/
 public/
-static/app.js*
 static/font/*.ttf
 static/style.css*
+static/*.js*
+.hugo_build.lock
 

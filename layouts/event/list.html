@@ -1,0 +1,13 @@
+{{ define "main" }}
+{{ $paginator := .Paginate .Data.Pages }}
+<main>
+	<ul>
+		{{ range $paginator.Pages }}
+        <li>
+            <a href="{{ .Permalink }}">{{- .Title -}}</a>
+        </li>
+		{{ end }}
+	</ul>
+</main>
+{{ end }}
+

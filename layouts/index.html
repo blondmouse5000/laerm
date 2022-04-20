@@ -1,9 +1,15 @@
 {{ define "main" }}
+<style>
+main {
+    display: grid;
+    place-items: center;
+    user-select: none;;
+}
+main > h1 {
+    font-size: 20vw;
+}
+</style>
 <main>
-    <!--<div class="content">-->
-        <!--<h1>LÄRM</h1>-->
-    <!--</div>-->
     <h1>{{ .Title }}</h1>
-    {{- .Content -}}
 </main>
 {{ end }}

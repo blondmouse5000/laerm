@@ -1,23 +1,13 @@
 /* --- COLORS --- */
 :root {
     --black: #050505;
+    --white: #f0f0f0;
     --yellow: #fff000;
+
     --bg: var(--yellow);
     --fg: var(--black);
- 
-    /*
-    --background: #0000ff;
-    --f_high: #000;
-    --f_med: #050505;
-    --f_low: #505050;
-    --f_inv: #fff000;
-    --b_high: #fff000;
-    --b_med: #fff000;
-    --b_low: #fff000;
-    --b_inv: #070707;
+    --acc: var(--white);
 
-    --fg: var(--f_med);
-    --bg: var(--b_med);
-    --acc: var(--f_high)
-*/
+    --app-border: 0.75rem;
+
 }

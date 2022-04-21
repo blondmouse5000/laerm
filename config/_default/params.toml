@@ -1,3 +1,4 @@
+baseURL = "http://laerm.ftl"
 domain = "laerm.ftl"
 languageCode = "en"
 defaultContentLanguage = "en"

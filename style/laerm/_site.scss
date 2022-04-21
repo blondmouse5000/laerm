@@ -15,11 +15,10 @@ body {
         overflow: hidden;
         display: flex;
         justify-content: center;
-        //align-items: center;
         text-align: center;
         user-select: none;
         h1 {
-            font-size: 20vw;
+            font-size: 16vw;
             margin: 0;
             line-height: 1;
        }
@@ -63,7 +62,7 @@ body {
         font-weight: bold;
         user-select: none;
         > i {
-            margin: 0 0.25em;
+            margin: 0 0.5em;
         }
     }
 }

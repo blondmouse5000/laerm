@@ -1,3 +1,4 @@
+@use 'breakpoint';
 
 *,
 *::before,
@@ -5,10 +6,18 @@
     box-sizing: border-box;
 }
 
+:root {
+    --font-size: 12px;
+    @media only screen and (min-width: breakpoint.$tablet) {
+        --font-size: 14px;
+    }
+}
+
 html {
-    font-size: 14px;
+    font-size: var(--font-size);
     line-height: 1.5;
     -webkit-text-size-adjust: 100%;
+    transition: font-size .3s;
 }
 
 html,
@@ -32,25 +41,27 @@ body {
 }
 
 a {
-    padding: 0.25em 0.5em;
     color: var(--fg);
     border: none;
-    border-radius: 0.5em;
     outline: none;
     text-decoration: none;
-    transition: all 0.1s;
-    &:hover {
-        background: var(--fg);
-        color: var(--bg);
+    &.link {
+        //padding: 0.25em 0.5em;
+        //border-radius: 0.5em;
+        //transition: all 0.1s;
+        &:hover {
+            background: var(--fg);
+            color: var(--bg);
+        }
+        &:focus {
+            background: var(--fg);
+            color: var(--bg);
+            border: none;
+        }
+        //a:not([href]) {
+            //color: var(--f_low);
+        //}
     }
-    &:focus {
-        background: var(--fg);
-        color: var(--bg);
-        border: none;
-    }
-    //a:not([href]) {
-        //color: var(--f_low);
-    //}
 }
 
 

@@ -4,7 +4,9 @@
 	<ul>
 		{{ range $paginator.Pages }}
         <li>
-            <a href="{{ .Permalink }}">{{- .Title -}}</a>
+            <h2>
+            <a class="link" href="{{ .Permalink }}">{{- .Title -}}</a>
+            </h2>
         </li>
 		{{ end }}
 	</ul>

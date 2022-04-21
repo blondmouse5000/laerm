@@ -1,6 +1,7 @@
 assets/*.js*
 node_modules/
 public/
+resources/
 static/font/*.ttf
 static/style.css*
 static/*.js*

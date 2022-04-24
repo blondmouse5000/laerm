@@ -27,6 +27,7 @@ After 2 years of pandemic, Lauter Lärm is back, with another blasting event.
 - [DJ Balli](https://sonicbelligeranza.com/)
 - [Fall Into Dry Lungs](https://fallinto.drylungs.at/)
 - BAM
+- [LUI](https://soundcloud.com/exlepaeng/pangstoff018-lui-ballern)
 
 ---
 
